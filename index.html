@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberplace - Your Gateway to AI Resources</title>
+    <meta name="description" content="Cyberplace.ai - Central hub for Teleadmin AI products: R-JEPA World Model, WebChat Agentique, and AI Administration tools.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #0ea5e9;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent: #22d3ee;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            padding: 0.25rem;
+            border-radius: 8px;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            background:
+                radial-gradient(ellipse at top, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+                var(--bg-dark);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+        }
+
+        /* Products Section */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .product-card .tagline {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .product-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .product-features li {
+            padding: 0.5rem 0;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .product-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .product-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-live {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--success);
+        }
+
+        .status-coming {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .product-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: gap 0.3s;
+        }
+
+        .product-link:hover {
+            gap: 1rem;
+        }
+
+        /* Architecture Section */
+        .architecture {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 4rem;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .architecture h3 {
+            text-align: center;
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+            color: var(--text);
+        }
+
+        .arch-diagram {
+            background: var(--bg-dark);
+            border-radius: 12px;
+            padding: 2rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.4;
+            color: var(--text-muted);
+        }
+
+        .arch-highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Resources Section */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .resource-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .resource-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .resource-card h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+            padding: 4rem 2rem 2rem;
+            margin-top: 6rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .arch-diagram {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo">Cyberplace</a>
+            <ul class="nav-links">
+                <li><a href="#products" data-i18n="nav.products">Products</a></li>
+                <li><a href="#resources" data-i18n="nav.resources">Resources</a></li>
+                <li><a href="#architecture" data-i18n="nav.architecture">Architecture</a></li>
+                <li><a href="https://teleadmin.net" target="_blank">Teleadmin</a></li>
+            </ul>
+            <div class="lang-toggle">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="fr">FR</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <span class="hero-badge" data-i18n="hero.badge">Teleadmin AI Ecosystem</span>
+                <h1 data-i18n="hero.title">Your Gateway to AI Resources</h1>
+                <p data-i18n="hero.description">
+                    Discover the Teleadmin AI ecosystem. Access documentation, SDKs, and resources
+                    for our cutting-edge AI products powered by R-JEPA World Model technology.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary" data-i18n="hero.explore">
+                        Explore Products →
+                    </a>
+                    <a href="https://github.com/Teleadmin-ai" class="btn btn-secondary" target="_blank">
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="section" id="products">
+            <div class="section-header">
+                <h2 data-i18n="products.title">AI Products</h2>
+                <p data-i18n="products.description">
+                    Three integrated solutions for next-generation AI capabilities
+                </p>
+            </div>
+
+            <div class="products-grid">
+                <!-- Cognition4AI -->
+                <div class="product-card animate-in delay-1">
+                    <div class="product-icon">🧠</div>
+                    <span class="product-status status-live" data-i18n="status.live">Live</span>
+                    <h3>Cognition4AI</h3>
+                    <p class="tagline">"The World Model for Reasoning"</p>
+                    <p data-i18n="products.cognition4ai.desc">
+                        R-JEPA World Model that enables predictive reasoning in latent space.
+                        Guide LLM responses with world-aware cognition.
+                    </p>
+                    <ul class="product-features">
+                        <li data-i18n="products.cognition4ai.f1">Latent prediction with R-JEPA</li>
+                        <li data-i18n="products.cognition4ai.f2">RERANK, NUDGE, PLAN modes</li>
+                        <li data-i18n="products.cognition4ai.f3">REST API integration</li>
+                        <li data-i18n="products.cognition4ai.f4">Python & JS SDKs</li>
+                    </ul>
+                    <a href="https://cognition4ai.com" class="product-link" target="_blank">
+                        <span data-i18n="products.visit">Visit</span> cognition4ai.com →
+                    </a>
+                </div>
+
+                <!-- Cognition4Chat -->
+                <div class="product-card animate-in delay-2">
+                    <div class="product-icon">💬</div>
+                    <span class="product-status status-live" data-i18n="status.live">Live</span>
+                    <h3>Cognition4Chat</h3>
+                    <p class="tagline">"Chat with AI that thinks before it speaks"</p>
+                    <p data-i18n="products.cognition4chat.desc">
+                        Agentic WebChat powered by R-JEPA. Experience augmented reasoning
+                        with conversational AI that truly understands context.
+                    </p>
+                    <ul class="product-features">
+                        <li data-i18n="products.cognition4chat.f1">R-JEPA augmented reasoning</li>
+                        <li data-i18n="products.cognition4chat.f2">Multi-agent conversations</li>
+                        <li data-i18n="products.cognition4chat.f3">Associative memory</li>
+                        <li data-i18n="products.cognition4chat.f4">Latent guidance</li>
+                    </ul>
+                    <a href="https://cognition4chat.com" class="product-link" target="_blank">
+                        <span data-i18n="products.visit">Visit</span> cognition4chat.com →
+                    </a>
+                </div>
+
+                <!-- Teleadmin.AI -->
+                <div class="product-card animate-in delay-3">
+                    <div class="product-icon">🛡️</div>
+                    <span class="product-status status-coming" data-i18n="status.coming">Coming Soon</span>
+                    <h3>Teleadmin.AI</h3>
+                    <p class="tagline">"AI-Powered Administration & Security"</p>
+                    <p data-i18n="products.teleadminai.desc">
+                        Intelligent system administration and security powered by AI.
+                        Automate infrastructure management with cognitive capabilities.
+                    </p>
+                    <ul class="product-features">
+                        <li data-i18n="products.teleadminai.f1">Automated sysadmin tasks</li>
+                        <li data-i18n="products.teleadminai.f2">Security monitoring</li>
+                        <li data-i18n="products.teleadminai.f3">Predictive maintenance</li>
+                        <li data-i18n="products.teleadminai.f4">Infrastructure insights</li>
+                    </ul>
+                    <span class="product-link" style="opacity: 0.5;">
+                        teleadmin.ai <span data-i18n="status.soon">— Coming Soon</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Architecture Diagram -->
+            <div class="architecture" id="architecture">
+                <h3 data-i18n="arch.title">Teleadmin Ecosystem Architecture</h3>
+                <div class="arch-diagram">
+                        <span class="arch-highlight">TELEADMIN.NET</span>
+                        (Hub Central)
+                             │
+              ┌──────────────┼──────────────┐
+              │              │              │
+        TELEADMIN.EU   <span class="arch-highlight">CYBERPLACE.AI</span>   [AUTRES]
+         (Hosting)       (CE SITE)      [FUTUR]
+                       AI Resources
+                             │
+           ┌─────────────────┼─────────────────┐
+           │                 │                 │
+      COGNITION4AI    COGNITION4CHAT    TELEADMIN.AI
+        R-JEPA         WebChat Agent      [FUTUR]
+      World Model       via R-JEPA      AI Admin/Sécu
+           │                 │
+           └────────┬────────┘
+                    │
+              <span class="arch-highlight">UTILISE R-JEPA</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section class="section" id="resources">
+            <div class="section-header">
+                <h2 data-i18n="resources.title">Resources</h2>
+                <p data-i18n="resources.description">
+                    Everything you need to get started with Teleadmin AI products
+                </p>
+            </div>
+
+            <div class="resources-grid">
+                <a href="https://cognition4ai.com/docs" class="resource-card" target="_blank">
+                    <div class="resource-icon">📚</div>
+                    <h4 data-i18n="resources.docs">Documentation</h4>
+                    <p data-i18n="resources.docs.desc">Complete guides for all products</p>
+                </a>
+
+                <a href="https://cognition4ai.com/api" class="resource-card" target="_blank">
+                    <div class="resource-icon">🔌</div>
+                    <h4 data-i18n="resources.api">API Reference</h4>
+                    <p data-i18n="resources.api.desc">R-JEPA endpoints documentation</p>
+                </a>
+
+                <a href="https://github.com/Teleadmin-ai" class="resource-card" target="_blank">
+                    <div class="resource-icon">💻</div>
+                    <h4 data-i18n="resources.sdks">SDKs & Code</h4>
+                    <p data-i18n="resources.sdks.desc">Python, JavaScript libraries</p>
+                </a>
+
+                <a href="mailto:contact@teleadmin.net" class="resource-card">
+                    <div class="resource-icon">🎧</div>
+                    <h4 data-i18n="resources.support">Support</h4>
+                    <p data-i18n="resources.support.desc">Get help from our team</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Teleadmin</h4>
+                <ul>
+                    <li><a href="https://teleadmin.net" target="_blank">teleadmin.net</a></li>
+                    <li><a href="https://teleadmin.eu" target="_blank">teleadmin.eu</a></li>
+                    <li><a href="mailto:contact@teleadmin.net">contact@teleadmin.net</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 data-i18n="footer.products">Products</h4>
+                <ul>
+                    <li><a href="https://cognition4ai.com" target="_blank">Cognition4AI</a></li>
+                    <li><a href="https://cognition4chat.com" target="_blank">Cognition4Chat</a></li>
+                    <li><span style="color: var(--text-muted)">Teleadmin.AI (Soon)</span></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 data-i18n="footer.resources">Resources</h4>
+                <ul>
+                    <li><a href="https://cognition4ai.com/docs" target="_blank" data-i18n="footer.docs">Documentation</a></li>
+                    <li><a href="https://github.com/Teleadmin-ai" target="_blank">GitHub</a></li>
+                    <li><a href="https://cognition4ai.com/api" target="_blank">API Reference</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 data-i18n="footer.vision">Vision</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;" data-i18n="footer.vision.text">
+                    Building a cybernetic society governed by reason and science.
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Teleadmin — Romain Provençal, CEO</p>
+        </div>
+    </footer>
+
+    <script>
+        // i18n translations
+        const translations = {
+            en: {
+                "nav.products": "Products",
+                "nav.resources": "Resources",
+                "nav.architecture": "Architecture",
+                "hero.badge": "Teleadmin AI Ecosystem",
+                "hero.title": "Your Gateway to AI Resources",
+                "hero.description": "Discover the Teleadmin AI ecosystem. Access documentation, SDKs, and resources for our cutting-edge AI products powered by R-JEPA World Model technology.",
+                "hero.explore": "Explore Products →",
+                "products.title": "AI Products",
+                "products.description": "Three integrated solutions for next-generation AI capabilities",
+                "status.live": "Live",
+                "status.coming": "Coming Soon",
+                "status.soon": "— Coming Soon",
+                "products.cognition4ai.desc": "R-JEPA World Model that enables predictive reasoning in latent space. Guide LLM responses with world-aware cognition.",
+                "products.cognition4ai.f1": "Latent prediction with R-JEPA",
+                "products.cognition4ai.f2": "RERANK, NUDGE, PLAN modes",
+                "products.cognition4ai.f3": "REST API integration",
+                "products.cognition4ai.f4": "Python & JS SDKs",
+                "products.cognition4chat.desc": "Agentic WebChat powered by R-JEPA. Experience augmented reasoning with conversational AI that truly understands context.",
+                "products.cognition4chat.f1": "R-JEPA augmented reasoning",
+                "products.cognition4chat.f2": "Multi-agent conversations",
+                "products.cognition4chat.f3": "Associative memory",
+                "products.cognition4chat.f4": "Latent guidance",
+                "products.teleadminai.desc": "Intelligent system administration and security powered by AI. Automate infrastructure management with cognitive capabilities.",
+                "products.teleadminai.f1": "Automated sysadmin tasks",
+                "products.teleadminai.f2": "Security monitoring",
+                "products.teleadminai.f3": "Predictive maintenance",
+                "products.teleadminai.f4": "Infrastructure insights",
+                "products.visit": "Visit",
+                "arch.title": "Teleadmin Ecosystem Architecture",
+                "resources.title": "Resources",
+                "resources.description": "Everything you need to get started with Teleadmin AI products",
+                "resources.docs": "Documentation",
+                "resources.docs.desc": "Complete guides for all products",
+                "resources.api": "API Reference",
+                "resources.api.desc": "R-JEPA endpoints documentation",
+                "resources.sdks": "SDKs & Code",
+                "resources.sdks.desc": "Python, JavaScript libraries",
+                "resources.support": "Support",
+                "resources.support.desc": "Get help from our team",
+                "footer.products": "Products",
+                "footer.resources": "Resources",
+                "footer.docs": "Documentation",
+                "footer.vision": "Vision",
+                "footer.vision.text": "Building a cybernetic society governed by reason and science."
+            },
+            fr: {
+                "nav.products": "Produits",
+                "nav.resources": "Ressources",
+                "nav.architecture": "Architecture",
+                "hero.badge": "Écosystème AI Teleadmin",
+                "hero.title": "Votre Portail vers les Ressources AI",
+                "hero.description": "Découvrez l'écosystème AI Teleadmin. Accédez à la documentation, SDKs et ressources pour nos produits AI de pointe propulsés par la technologie R-JEPA World Model.",
+                "hero.explore": "Explorer les Produits →",
+                "products.title": "Produits AI",
+                "products.description": "Trois solutions intégrées pour les capacités AI de nouvelle génération",
+                "status.live": "Actif",
+                "status.coming": "Bientôt",
+                "status.soon": "— Bientôt disponible",
+                "products.cognition4ai.desc": "World Model R-JEPA permettant le raisonnement prédictif dans l'espace latent. Guidez les réponses LLM avec une cognition consciente du monde.",
+                "products.cognition4ai.f1": "Prédiction latente avec R-JEPA",
+                "products.cognition4ai.f2": "Modes RERANK, NUDGE, PLAN",
+                "products.cognition4ai.f3": "Intégration API REST",
+                "products.cognition4ai.f4": "SDKs Python & JS",
+                "products.cognition4chat.desc": "WebChat Agentique propulsé par R-JEPA. Expérimentez le raisonnement augmenté avec une IA conversationnelle qui comprend vraiment le contexte.",
+                "products.cognition4chat.f1": "Raisonnement augmenté R-JEPA",
+                "products.cognition4chat.f2": "Conversations multi-agents",
+                "products.cognition4chat.f3": "Mémoire associative",
+                "products.cognition4chat.f4": "Guidance latente",
+                "products.teleadminai.desc": "Administration système et sécurité intelligentes propulsées par l'IA. Automatisez la gestion d'infrastructure avec des capacités cognitives.",
+                "products.teleadminai.f1": "Tâches sysadmin automatisées",
+                "products.teleadminai.f2": "Surveillance sécurité",
+                "products.teleadminai.f3": "Maintenance prédictive",
+                "products.teleadminai.f4": "Insights infrastructure",
+                "products.visit": "Visiter",
+                "arch.title": "Architecture de l'Écosystème Teleadmin",
+                "resources.title": "Ressources",
+                "resources.description": "Tout ce dont vous avez besoin pour démarrer avec les produits AI Teleadmin",
+                "resources.docs": "Documentation",
+                "resources.docs.desc": "Guides complets pour tous les produits",
+                "resources.api": "Référence API",
+                "resources.api.desc": "Documentation des endpoints R-JEPA",
+                "resources.sdks": "SDKs & Code",
+                "resources.sdks.desc": "Bibliothèques Python, JavaScript",
+                "resources.support": "Support",
+                "resources.support.desc": "Obtenez de l'aide de notre équipe",
+                "footer.products": "Produits",
+                "footer.resources": "Ressources",
+                "footer.docs": "Documentation",
+                "footer.vision": "Vision",
+                "footer.vision.text": "Construire une société cybernétique gouvernée par la raison et la science."
+            }
+        };
+
+        let currentLang = 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Update html lang
+            document.documentElement.lang = lang;
+        }
+
+        // Language toggle event
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.product-card, .resource-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
