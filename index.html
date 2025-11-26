@@ -8,6 +8,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+    </script>
     <style>
         :root {
             --primary: #6366f1;
@@ -359,21 +368,26 @@
             color: var(--text);
         }
 
-        .arch-diagram {
+        .mermaid-container {
             background: var(--bg-dark);
             border-radius: 12px;
             padding: 2rem;
-            font-family: 'Fira Code', 'Courier New', monospace;
-            font-size: 0.85rem;
             overflow-x: auto;
-            white-space: pre;
-            line-height: 1.4;
-            color: var(--text-muted);
         }
 
-        .arch-highlight {
-            color: var(--accent);
-            font-weight: bold;
+        .mermaid-container .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+
+        .mermaid-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Links in Mermaid */
+        .mermaid a {
+            text-decoration: none !important;
         }
 
         /* Resources Section */
@@ -596,9 +610,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .arch-diagram {
-                font-size: 0.7rem;
-            }
         }
 
         /* Animations */
@@ -720,7 +731,7 @@
             <div class="section-header">
                 <h2 data-i18n="products.title">AI Products</h2>
                 <p data-i18n="products.description">
-                    Three integrated solutions for next-generation AI capabilities
+                    Four integrated solutions for next-generation AI capabilities
                 </p>
             </div>
 
@@ -767,8 +778,29 @@
                     </a>
                 </div>
 
-                <!-- Teleadmin.AI -->
+                <!-- Senior Robotics (Joe) -->
                 <div class="product-card animate-in delay-3">
+                    <div class="product-icon">🤖</div>
+                    <span class="product-status status-live" data-i18n="status.live">Live</span>
+                    <h3>Senior Robotics</h3>
+                    <p class="tagline">"Joe - Le Robot Compagnon des Seniors"</p>
+                    <p data-i18n="products.senior.desc">
+                        Companion robot for seniors powered by R-JEPA. Joe provides assistance,
+                        safety monitoring and companionship for elderly living at home.
+                    </p>
+                    <ul class="product-features">
+                        <li data-i18n="products.senior.f1">Natural conversation companion</li>
+                        <li data-i18n="products.senior.f2">Health & medication reminders</li>
+                        <li data-i18n="products.senior.f3">Fall detection & emergency alerts</li>
+                        <li data-i18n="products.senior.f4">Family video calls</li>
+                    </ul>
+                    <a href="https://senior-robotics.com" class="product-link" target="_blank">
+                        <span data-i18n="products.visit">Visit</span> senior-robotics.com →
+                    </a>
+                </div>
+
+                <!-- Teleadmin.AI -->
+                <div class="product-card animate-in delay-4">
                     <div class="product-icon">🛡️</div>
                     <span class="product-status status-coming" data-i18n="status.coming">Coming Soon</span>
                     <h3>Teleadmin.AI</h3>
@@ -792,25 +824,50 @@
             <!-- Architecture Diagram -->
             <div class="architecture" id="architecture">
                 <h3 data-i18n="arch.title">Teleadmin Ecosystem Architecture</h3>
-                <div class="arch-diagram">
-                        <span class="arch-highlight">TELEADMIN.NET</span>
-                        (Hub Central)
-                             │
-              ┌──────────────┼──────────────┐
-              │              │              │
-        TELEADMIN.EU   <span class="arch-highlight">CYBERPLACE.AI</span>   [AUTRES]
-         (Hosting)       (CE SITE)      [FUTUR]
-                       AI Resources
-                             │
-           ┌─────────────────┼─────────────────┐
-           │                 │                 │
-      COGNITION4AI    COGNITION4CHAT    TELEADMIN.AI
-        R-JEPA         WebChat Agent      [FUTUR]
-      World Model       via R-JEPA      AI Admin/Sécu
-           │                 │
-           └────────┬────────┘
-                    │
-              <span class="arch-highlight">UTILISE R-JEPA</span>
+                <div class="mermaid-container">
+                    <pre class="mermaid">
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'primaryTextColor': '#e2e8f0', 'primaryBorderColor': '#4f46e5', 'lineColor': '#0ea5e9', 'secondaryColor': '#1e293b', 'tertiaryColor': '#0f172a', 'background': '#0f172a', 'mainBkg': '#1e293b', 'nodeBorder': '#6366f1', 'clusterBkg': '#1e293b', 'clusterBorder': '#6366f1', 'titleColor': '#e2e8f0', 'edgeLabelBackground': '#1e293b'}}}%%
+flowchart TB
+    subgraph HUB["🚀 HUB CENTRAL"]
+        TELEADMIN["<a href='https://teleadmin.net'>🏢 TELEADMIN.NET</a><br/>Auth & Dashboard"]
+    end
+
+    subgraph BRANCHES["📦 BRANCHES"]
+        HOSTING["<a href='https://teleadmin.com'>🖥️ TELEADMIN.COM</a><br/>Hosting OVH"]
+        CYBER["<a href='https://cyberplace.ai'>🌐 CYBERPLACE.AI</a><br/>AI Resources"]
+    end
+
+    subgraph PRODUCTS["🧠 AI PRODUCTS"]
+        RJEPA["<a href='https://cognition4ai.com'>🧠 COGNITION4AI</a><br/>R-JEPA World Model"]
+        CHAT["<a href='https://cognition4chat.com'>💬 COGNITION4CHAT</a><br/>WebChat Agent"]
+        JOE["<a href='https://senior-robotics.com'>🤖 SENIOR ROBOTICS</a><br/>Joe - Robot Compagnon"]
+        ADMIN["🛡️ TELEADMIN.AI<br/>AI Admin & Sécurité"]
+    end
+
+    subgraph ENGINE["⚡ MOTEUR"]
+        CORE[["🔮 R-JEPA<br/>World Model Engine"]]
+    end
+
+    TELEADMIN --> HOSTING
+    TELEADMIN --> CYBER
+    CYBER --> RJEPA
+    CYBER --> CHAT
+    CYBER --> JOE
+    CYBER --> ADMIN
+    RJEPA --> CORE
+    CHAT --> CORE
+    JOE --> CORE
+    ADMIN -.-> CORE
+
+    style TELEADMIN fill:#6366f1,stroke:#4f46e5,color:#fff
+    style CYBER fill:#0ea5e9,stroke:#0284c7,color:#fff
+    style RJEPA fill:#22c55e,stroke:#16a34a,color:#fff
+    style CHAT fill:#22c55e,stroke:#16a34a,color:#fff
+    style JOE fill:#f97316,stroke:#ea580c,color:#fff
+    style ADMIN fill:#94a3b8,stroke:#64748b,color:#1e293b
+    style HOSTING fill:#6366f1,stroke:#4f46e5,color:#fff
+    style CORE fill:#22d3ee,stroke:#06b6d4,color:#0f172a
+                    </pre>
                 </div>
             </div>
         </section>
@@ -932,6 +989,11 @@
                 "products.teleadminai.f2": "Security monitoring",
                 "products.teleadminai.f3": "Predictive maintenance",
                 "products.teleadminai.f4": "Infrastructure insights",
+                "products.senior.desc": "Companion robot for seniors powered by R-JEPA. Joe provides assistance, safety monitoring and companionship for elderly living at home.",
+                "products.senior.f1": "Natural conversation companion",
+                "products.senior.f2": "Health & medication reminders",
+                "products.senior.f3": "Fall detection & emergency alerts",
+                "products.senior.f4": "Family video calls",
                 "products.visit": "Visit",
                 "arch.title": "Teleadmin Ecosystem Architecture",
                 "resources.title": "Resources",
@@ -989,6 +1051,11 @@
                 "products.teleadminai.f2": "Surveillance sécurité",
                 "products.teleadminai.f3": "Maintenance prédictive",
                 "products.teleadminai.f4": "Insights infrastructure",
+                "products.senior.desc": "Robot compagnon pour seniors propulsé par R-JEPA. Joe offre assistance, surveillance de sécurité et compagnie pour les personnes âgées vivant à domicile.",
+                "products.senior.f1": "Compagnon de conversation naturelle",
+                "products.senior.f2": "Rappels santé & médicaments",
+                "products.senior.f3": "Détection de chutes & alertes urgence",
+                "products.senior.f4": "Appels vidéo famille",
                 "products.visit": "Visiter",
                 "arch.title": "Architecture de l'Écosystème Teleadmin",
                 "resources.title": "Ressources",
